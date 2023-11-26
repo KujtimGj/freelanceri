@@ -59,6 +59,8 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -152,27 +154,17 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: Colors.grey[300],
-                    suffixIcon: eye
-                        ? GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                eye != eye;
-                              });
-                            },
-                            child: Icon(
-                              Icons.visibility,
-                              color: Colors.grey[500],
-                            ))
-                        : GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                eye != eye;
-                              });
-                            },
-                            child: Icon(
-                              Icons.visibility_off,
-                              color: Colors.grey[500],
-                            )),
+                    suffixIcon:GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          eye = !eye; // Fix this line
+                        });
+                      },
+                      child: Icon(
+                        eye ? Icons.visibility : Icons.visibility_off,
+                        color: Colors.grey[500],
+                      ),
+                    ),
                     hintText: 'Password',
                     hintStyle: TextStyle(color: Colors.grey[500]),
                     border: OutlineInputBorder(

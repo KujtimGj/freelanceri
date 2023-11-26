@@ -53,7 +53,7 @@ class Details extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
                         image: AssetImage(
-                          "assets/postExample2.jpg",
+                          "assets/images/postExample2.jpg",
                         ),
                         filterQuality: FilterQuality.high,
                         colorFilter: ColorFilter.mode(
@@ -83,7 +83,7 @@ class Details extends StatelessWidget {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "Prishtina",
+                                post.city,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
@@ -114,7 +114,7 @@ class Details extends StatelessWidget {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "20 ditë",
+                                post.duration,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!

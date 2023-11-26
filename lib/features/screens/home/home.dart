@@ -9,38 +9,42 @@ import 'package:Freelanceri/features/screens/details/details.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  List<PostModel>? postModel;
-   Home({Key? key,this.postModel}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   bool fetchingPosts = false;
 
-  getPosts()async{
-    setState(() =>fetchingPosts=true);
-    var provider = Provider.of<PostProvider>(context,listen: false);
-    await provider.getAllPosts(context);
-    setState(() => fetchingPosts=false);
+  getPosts() async {
+    setState(() => fetchingPosts = true);
+    var provider = Provider.of<PostProvider>(context, listen: false);
+    List<PostModel>? posts = await provider.getAllPosts(context);
+    if (posts != null) {
+      setState(() {
+        fetchingPosts = false;
+      });
+    } else {
+      // Handle the case where the posts are null
+      print('Failed to fetch posts');
+      setState(() => fetchingPosts = false);
+    }
   }
-
-
-
 
   @override
   void initState() {
     super.initState();
-    getPosts();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getPosts();
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final provider = Provider.of<PostProvider>(context);
+    final postProvider = Provider.of<PostProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -69,75 +73,74 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
-              ListView.builder(
+              fetchingPosts?const Center(child: CircularProgressIndicator(color: primaryBlue,),):postProvider.getPosts().isEmpty?Text("No posts"):ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: postModel.length,
+                itemCount: postProvider.getPosts().length,
                 itemBuilder: (context, index) {
-                  PostModel posts = postModel[index];
                   return Entry.offset(
                     duration: Duration(seconds: index == 0 ? 1 : index + 1),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Details(post: posts,)));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Details(post: postProvider.getPosts()[index]),
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Container(
                           width: size.width * 0.95,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white),
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                height: getPhoneHeight(context)*0.25,
+                                height: getPhoneHeight(context) * 0.25,
                                 width: double.infinity,
                                 decoration: const BoxDecoration(
-                                  borderRadius:  BorderRadius.only(topRight: Radius.circular(10),topLeft:Radius.circular(10) ),
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10)),
                                   image: DecorationImage(
-                                    image: AssetImage("assets/postExample2.jpg"),fit: BoxFit.cover)
+                                      image: AssetImage("assets/images/Free.png"),
+                                      fit: BoxFit.cover),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
                                         SizedBox(
-                                          height:50,
+                                          height: 50,
                                           width: 50,
-                                          child:Icon(Icons.account_circle_sharp,size: 50,color: Colors.grey[500],)
+                                          child: Icon(Icons.account_circle_sharp, size: 50, color: Colors.grey[500]),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
+                                          padding: const EdgeInsets.only(left: 8.0),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(
                                                 width: size.width * 0.55,
                                                 child: Text(
-                                                  postModel[index].title,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge!
-                                                      .copyWith(fontSize: 17),
+                                                  postProvider.getPosts()[index].title,
+                                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 17),
                                                   overflow: TextOverflow.clip,
                                                 ),
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                              "Filan Fisteku",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium,
+                                                "Filan Fisteku",
+                                                style: Theme.of(context).textTheme.bodyMedium,
                                               )
                                             ],
                                           ),
@@ -145,100 +148,84 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                     GestureDetector(
-                                        onTap: () {},
-                                        child:const Icon(
-                                       Icons.bookmark_outline,
-                                          size: 30,
-                                          color: primaryBlue,
-                                        ))
+                                      onTap: () {},
+                                      child: const Icon(
+                                        Icons.bookmark_outline,
+                                        size: 30,
+                                        color: primaryBlue,
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
                               const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 5),
+                                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                                 child: Divider(
                                   height: 1,
                                   color: Colors.grey,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 child: Text(
-                                  postModel[index].description,
-                                  style: const TextStyle(
-                                      height: 1.2, wordSpacing: 1.3,fontSize: 13),
+                                  postProvider.getPosts()[index].description,
+                                  style: const TextStyle(height: 1.2, wordSpacing: 1.3, fontSize: 13),
                                   maxLines: 3,
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.04,
-                                    vertical: size.height * 0.01),
+                                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.01),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Punëtorë",
-                                          style: TextStyle(
-                                              color: Colors.grey[600],fontSize: 14),
+                                          style: TextStyle(color: Colors.grey[600], fontSize: 14),
                                         ),
                                         Text(
-                                         postModel[index].neededWorkers.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
-                                                  color: primaryBlue,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600),
+                                          postProvider.getPosts()[index].neededWorkers.toString(),
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                            color: primaryBlue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         )
                                       ],
                                     ),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Kohëzgjatja",
-                                          style: TextStyle(
-                                              color: Colors.grey[600],fontSize: 14),
+                                          style: TextStyle(color: Colors.grey[600], fontSize: 14),
                                         ),
                                         Text(
-                                          postModel[index].duration,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
-                                                  color: primaryBlue,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600),
+                                          postProvider.getPosts()[index].duration,
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                            color: primaryBlue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         )
                                       ],
                                     ),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Bugjeti",
-                                          style: TextStyle(
-                                              color: Colors.grey[600],fontSize: 14),
+                                          style: TextStyle(color: Colors.grey[600], fontSize: 14),
                                         ),
                                         Text(
-                                          "${postModel[index].budget}€",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
-                                                  color: primaryBlue,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600),
+                                          "${postProvider.getPosts()[index].budget}€",
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                            color: primaryBlue,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -256,8 +243,7 @@ class _HomeState extends State<Home> {
                                 child: const Center(
                                   child: Text(
                                     "Apliko",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
+                                    style: TextStyle(color: Colors.white, fontSize: 17),
                                   ),
                                 ),
                               ),

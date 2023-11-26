@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'package:Freelanceri/core/dimensions.dart';
 import 'package:Freelanceri/features/providers/postProvider.dart';
+import 'package:Freelanceri/main.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -13,6 +16,7 @@ import 'package:Freelanceri/features/model/postModel.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 
 class CreatePost extends StatefulWidget {
   const CreatePost({Key? key}) : super(key: key);
@@ -133,6 +137,7 @@ class _CreatePostState extends State<CreatePost> {
       );
 
       await postProvider.createPost(postModel);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
     }
   }
 
@@ -460,6 +465,7 @@ class _CreatePostState extends State<CreatePost> {
                   right: size.width * 0.03,
                   top: size.height * 0.02),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: budgetController,
                 decoration: InputDecoration(
                     filled: true,
@@ -921,4 +927,44 @@ class _CreatePostState extends State<CreatePost> {
       ),
     );
   }
+
 }
+
+
+class SucessfulPost extends StatefulWidget {
+  const SucessfulPost({Key? key}) : super(key: key);
+
+  @override
+  State<SucessfulPost> createState() => _SucessfulPostState();
+}
+
+class _SucessfulPostState extends State<SucessfulPost> {
+  @override
+  void initState() {
+    Timer(const Duration(seconds: 2),(){
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> const Base()), (route) => false);
+    });
+    super.initState();
+  }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SizedBox(
+        height: getPhoneHeight(context),
+        width: getPhoneWitdth(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: getPhoneHeight(context)*0.6,
+              width: getPhoneWitdth(context)*0.6,
+              child: Lottie.asset("assets/lottie/success.json"),
+            ),
+            Text("Post added sucessfully")
+          ],
+        ),
+      ),
+    );
+  }
+}
+

@@ -83,7 +83,7 @@ class _PublishmentState extends State<Publishment> {
                         child: Column(
                           children: [
                             Image.asset(
-                              "assets/freelancer.png",
+                              "assets/images/freelancer.png",
                               height: 120,
                             ),
                             const Text(
@@ -119,7 +119,7 @@ class _PublishmentState extends State<Publishment> {
                         ),
                         child: Column(
                           children: [
-                            Image.asset("assets/office-building.png",height: 120,),
+                            Image.asset("assets/images/office-building.png",height: 120,),
                             const Text("Pune afatgjate",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),)
                           ],
                         ),
