@@ -4,6 +4,7 @@ import 'package:Freelanceri/features/model/userModel.dart';
 import 'package:Freelanceri/features/screens/AuthUi/login.dart';
 import 'package:Freelanceri/features/screens/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class UserProvider extends ChangeNotifier {
   UserModel? _user;
@@ -47,13 +48,13 @@ class UserProvider extends ChangeNotifier {
 
     return result.fold(
           (failure) {
-        // Handle failure, e.g., show an error message
         print('Login failed: $failure');
         return null;
       },
           (user) {
-        _user = UserModel(email: email, password: password, firstName: user.firstName, lastName: user.lastName);
+        _user = UserModel(id:M.ObjectId(),email: email, password: password, firstName: user.firstName, lastName: user.lastName);
         notifyListeners();
+        print(_user);
         return _user;
       },
     );

@@ -62,7 +62,7 @@ class _AccountState extends State<Account> {
                       decoration: const BoxDecoration(
                         color: primaryBlue,
                       ),
-                      child: Image.asset("assets/Free.png",fit: BoxFit.fitWidth,),
+                      child: Image.asset("assets/images/Free.png",fit: BoxFit.fitWidth,),
                     ),
                   ),
                   Align(
@@ -74,7 +74,7 @@ class _AccountState extends State<Account> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: AssetImage("assets/user_kgj.png"))),
+                              image: AssetImage("assets/images/user_kgj.png"))),
                     ),
                   )
                 ],
@@ -131,7 +131,7 @@ class _AccountState extends State<Account> {
                   Row(
                     children: [
                       Image.asset(
-                        "assets/algo.png",
+                        "assets/images/algo.png",
                         height: 75,
                       ),
                       const Column(
@@ -160,7 +160,7 @@ class _AccountState extends State<Account> {
                         padding: const EdgeInsets.all(15),
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage("assets/cacttus_logo.jpg")
+                                image: AssetImage("assets/images/cacttus_logo.jpg")
                             )
                         ),
                       ),
@@ -186,7 +186,7 @@ class _AccountState extends State<Account> {
                   Row(
                     children: [
                       Image.asset(
-                        "assets/uni.png",
+                        "assets/images/uni.png",
                         height: 75,
                       ),
                       const Column(

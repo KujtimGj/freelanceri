@@ -35,6 +35,7 @@ class RegisterController {
           Map<String, dynamic> payload = Jwt.parseJwt(token);
           prefs.setString("firstName", decodedData['user']['firstName']);
           prefs.setString("lastName", decodedData['user']['lastName']);
+          prefs.setString("uuid", decodedData['user']['_id']);
           print(prefs.getString("firstName"));
           print(prefs.getString("lastName"));
         }

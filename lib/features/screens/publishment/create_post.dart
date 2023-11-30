@@ -946,6 +946,7 @@ class _SucessfulPostState extends State<SucessfulPost> {
     });
     super.initState();
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
@@ -955,12 +956,12 @@ class _SucessfulPostState extends State<SucessfulPost> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: getPhoneHeight(context)*0.6,
               width: getPhoneWitdth(context)*0.6,
               child: Lottie.asset("assets/lottie/success.json"),
             ),
-            Text("Post added sucessfully")
+            const Text("Post added sucessfully",style: TextStyle(fontSize: 22),)
           ],
         ),
       ),

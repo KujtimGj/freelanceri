@@ -35,8 +35,9 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController passwordController = TextEditingController();
 
   bool eye = true;
+  String? uuid;
 
-  Future<void> login(UserProvider userProvider) async {
+  login(UserProvider userProvider) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
@@ -48,6 +49,9 @@ class _LoginViewState extends State<LoginView> {
 
       Navigator.push(context, MaterialPageRoute(builder: (_) => const Base()));
       prefs.setBool("isLoggedIn", true);
+      setState(() {
+        uuid=prefs.getString("uuid");
+      });
     } else {
       // Handle login failure, e.g., show an error message
       ScaffoldMessenger.of(context).showSnackBar(
@@ -209,9 +213,10 @@ class _LoginViewState extends State<LoginView> {
             ),
             Center(
               child: GestureDetector(
-                onTap: () {
-                  login(userProvider);
+                onTap: ()async {
+                   login(userProvider);
                   print(passwordController.text);
+                  print(uuid);
                 },
                 child: Container(
                   margin: const EdgeInsets.all(10),

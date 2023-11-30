@@ -2,8 +2,10 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class UserModel {
   String firstName, lastName, email, password;
+  M.ObjectId id;
 
   UserModel({
+    required this.id,
     required this.email,
     required this.firstName,
     required this.lastName,
@@ -12,7 +14,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic>? json) {
     return UserModel(
-      email: json?['email'] as String? ?? "",
+      id: json?['_id'] != null ? M.ObjectId.parse(json!['_id']) : M.ObjectId(),      email: json?['email'] as String? ?? "",
       firstName: json?['firstName'] as String? ?? "",
       lastName: json?['lastName'] as String? ?? "",
       password: json?['password'] as String? ?? "",
@@ -21,6 +23,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
+      "_id":id,
       "email": email,
       "firstName": firstName,
       "lastName": lastName,

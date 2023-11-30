@@ -31,6 +31,7 @@ class _SignupViewState extends State<SignupView> {
     String email = emailController.text.trim();
 
     UserModel userModel = UserModel(
+      id: M.ObjectId(),
       firstName: name,
       lastName: lastName,
       email: email,
