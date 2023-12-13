@@ -20,4 +20,5 @@ const String loginRoute = "$host/user/login";
 //LOCALHOST
 const String localHost = "localhost:7000";
 //post
-const String localPost = "/post";
+const String localogin='$localHost/user/login';
+const String localPost='$localHost/posts';

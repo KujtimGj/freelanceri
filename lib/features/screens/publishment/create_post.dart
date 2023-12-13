@@ -17,6 +17,7 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreatePost extends StatefulWidget {
   const CreatePost({Key? key}) : super(key: key);
@@ -102,6 +103,7 @@ class _CreatePostState extends State<CreatePost> {
   File? _selectedImage;
 
   post(context) async {
+    SharedPreferences prefs =await SharedPreferences.getInstance();
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
         numberOfFreelancersController.text.isEmpty ||
@@ -121,6 +123,12 @@ class _CreatePostState extends State<CreatePost> {
     } else {
       setState(() => posting = true);
       var postProvider = Provider.of<PostProvider>(context, listen: false);
+      UserId userId = UserId(
+        id: prefs.getString('uuid').toString(),
+        firstName: prefs.getString("firstName").toString(),
+        lastName: prefs.getString("lastName").toString(),
+        email: prefs.getString("email").toString(),
+      );
       PostModel postModel = PostModel(
         id: M.ObjectId(),
         title: titleController.text,
@@ -132,10 +140,10 @@ class _CreatePostState extends State<CreatePost> {
         requirements: requirementsController.text,
         experienceLevel: experienceLevel!,
         postCategory: jobCategoryController.toString(),
-        postCategoryID: "2", // Assuming this should be a string
-        userId: "asdsadas",
+        postCategoryId: "2", // Assuming this should be a string
+        userId:userId,
       );
-
+      print(prefs.getString("uuid"));
       await postProvider.createPost(postModel);
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
     }

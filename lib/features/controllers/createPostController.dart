@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class CreatePostController {
   static const Map<String, String> headers = {"Content-Type": "application/json"};
-  static const String createPostEndpoint = "$createAPost";
+  static const String createPostEndpoint = "$localPost";
 
   Future<Either<Failure, PostModel>> createPost(PostModel postModel) async {
     try {

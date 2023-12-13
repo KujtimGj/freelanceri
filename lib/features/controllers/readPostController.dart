@@ -18,6 +18,7 @@ class PostsController{
       print(decodedData);
       return Right(posts);
     }else{
+      print("object");
       return Left(ServerFailure());
     }
   }
