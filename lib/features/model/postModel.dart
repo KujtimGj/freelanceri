@@ -29,20 +29,22 @@ class PostModel {
     required this.experienceLevel,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    id: json["_id"],
-    userId: UserId.fromJson(json["userId"]),
-    title: json["title"],
-    description: json["description"],
-    duration: json["duration"],
-    neededWorkers: json["neededWorkers"],
-    budget: json["budget"],
-    city: json["city"],
-    requirements: json["requirements"],
-    postCategory: json["postCategory"],
-    postCategoryId: json["postCategoryID"],
-    experienceLevel: json["experienceLevel"],
-  );
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json["_id"] != null ? M.ObjectId.fromHexString(json["_id"]) : M.ObjectId(),
+      userId: UserId.fromJson(json["userId"]),
+      title: json["title"],
+      description: json["description"],
+      duration: json["duration"],
+      neededWorkers: json["neededWorkers"],
+      budget: json["budget"],
+      city: json["city"],
+      requirements: json["requirements"],
+      postCategory: json["postCategory"],
+      postCategoryId: json["postCategoryID"],
+      experienceLevel: json["experienceLevel"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "_id": id,
@@ -63,7 +65,7 @@ class PostModel {
 
 
 class UserId {
-  String id;
+  M.ObjectId id;
   String firstName;
   String lastName;
   String email;
@@ -78,7 +80,7 @@ class UserId {
   });
 
   factory UserId.fromJson(Map<String, dynamic> json) => UserId(
-    id: json["_id"],
+    id: json["_id"] != null ? M.ObjectId.fromHexString(json["_id"]) : M.ObjectId(),
     firstName: json["firstName"],
     lastName: json["lastName"],
     email: json["email"],
@@ -86,7 +88,7 @@ class UserId {
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
+    "_id": id.toHexString(),
     "firstName": firstName,
     "lastName": lastName,
     "email": email,

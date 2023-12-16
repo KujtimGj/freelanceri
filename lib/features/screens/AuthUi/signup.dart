@@ -36,6 +36,8 @@ class _SignupViewState extends State<SignupView> {
       lastName: lastName,
       email: email,
       password: password,
+      city: 'city',
+      profession: ''
     );
 
     await userProvider.register(context, userModel);

@@ -17,7 +17,7 @@ class RegisterController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
-      var loginUrl = Uri.parse(localogin);
+      var loginUrl = Uri.parse(loginRoute);
       var loginData = {'email': email, 'password': password};
 
       var response = await http.post(
@@ -33,17 +33,18 @@ class RegisterController {
         if (token != null) {
           await prefs.setString("token", token);
           Map<String, dynamic> payload = Jwt.parseJwt(token);
-          prefs.setString("firstName", decodedData['user']['firstName']);
-          prefs.setString("lastName", decodedData['user']['lastName']);
-          prefs.setString("email", decodedData['user']['email']);
-          prefs.setString("uuid", decodedData['user']['_id']);
+          prefs.setString("firstName", decodedData['business']['firstName']);
+          prefs.setString("lastName", decodedData['business']['lastName']);
+          prefs.setString("email", decodedData['business']['email']);
+          prefs.setString("uuid", decodedData['business']['_id']);
           print(prefs.getString("firstName"));
           print(prefs.getString("lastName"));
           print(prefs.getString("uuid"));
+          print("test");
         }
 
         // Parse the UserModel from the JSON data
-        var userModel = UserModel.fromJson(decodedData['user']);
+        var userModel = UserModel.fromJson(decodedData['business']);
         return Right(userModel);
       } else if (response.statusCode == 401) {
         // Unauthorized - handle accordingly

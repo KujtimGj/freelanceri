@@ -52,7 +52,7 @@ class UserProvider extends ChangeNotifier {
         return null;
       },
           (user) {
-        _user = UserModel(id:M.ObjectId(),email: email, password: password, firstName: user.firstName, lastName: user.lastName);
+        _user = UserModel(id:M.ObjectId(),email: email, password: password, firstName: user.firstName, lastName: user.lastName,city: user.city,profession: user.profession);
         notifyListeners();
         print(_user);
         return _user;

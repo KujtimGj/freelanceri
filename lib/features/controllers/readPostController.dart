@@ -10,6 +10,7 @@ class PostsController{
 
   Future<Either<Failure,List<PostModel>>> getPosts() async{
     var url = Uri.parse("$host$allPosts");
+    print("$host$allPosts");
     var res = await http.get(url,headers: headers);
     var decodedData = jsonDecode(res.body);
 

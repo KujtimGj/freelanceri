@@ -46,7 +46,7 @@ class _LoginViewState extends State<LoginView> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (user != null) {
       // Navigate to the home page or perform other actions upon successful login
-
+      print(user);
       Navigator.push(context, MaterialPageRoute(builder: (_) => const Base()));
       prefs.setBool("isLoggedIn", true);
       setState(() {
@@ -215,8 +215,6 @@ class _LoginViewState extends State<LoginView> {
               child: GestureDetector(
                 onTap: ()async {
                    login(userProvider);
-                  print(passwordController.text);
-                  print(uuid);
                 },
                 child: Container(
                   margin: const EdgeInsets.all(10),

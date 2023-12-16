@@ -124,7 +124,7 @@ class _CreatePostState extends State<CreatePost> {
       setState(() => posting = true);
       var postProvider = Provider.of<PostProvider>(context, listen: false);
       UserId userId = UserId(
-        id: prefs.getString('uuid').toString(),
+        id: M.ObjectId.fromHexString(prefs.get("uuid").toString()),
         firstName: prefs.getString("firstName").toString(),
         lastName: prefs.getString("lastName").toString(),
         email: prefs.getString("email").toString(),
@@ -143,9 +143,10 @@ class _CreatePostState extends State<CreatePost> {
         postCategoryId: "2", // Assuming this should be a string
         userId:userId,
       );
+
       print(prefs.getString("uuid"));
-      await postProvider.createPost(postModel);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
+      await postProvider.createPost(postModel,context);
+      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
     }
   }
 

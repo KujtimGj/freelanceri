@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Freelanceri/features/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:Freelanceri/features/controllers/createPostController.dart';
 import 'package:Freelanceri/features/controllers/readPostController.dart';
@@ -25,7 +26,7 @@ class PostProvider extends ChangeNotifier {
         notifyListeners();
       });
   }
-  Future<void> createPost(PostModel postModel) async {
+  Future<void> createPost(PostModel postModel,context) async {
 
     createPostController = CreatePostController();
     if (createPostController == null) {
@@ -36,11 +37,14 @@ class PostProvider extends ChangeNotifier {
     var result = await createPostController!.createPost(postModel);
     result.fold(
           (failure) {
-        print(failure); // Handle failure appropriately
+        print(failure);
+        print("bbbbbbbbbbbbbbb");
       },
           (createdPost) {
         _posts.add(createdPost);
         notifyListeners();
+        print("AAAAAAAAAAAAAAAAAA");
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>Home()), (route) => false);
       },
     );
   }
