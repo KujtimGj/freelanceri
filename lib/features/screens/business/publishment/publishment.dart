@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Freelanceri/core/const.dart';
 import 'package:Freelanceri/main.dart';
-import 'package:Freelanceri/features/screens/publishment/create_post.dart';
+import 'package:Freelanceri/features/screens/business/publishment/create_post.dart';
 
 
 class Publishment extends StatefulWidget {

@@ -1,22 +1,22 @@
-import 'package:Freelanceri/core/dimensions.dart';
 import 'package:Freelanceri/features/model/userModel.dart';
 import 'package:Freelanceri/features/providers/userProvider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:Freelanceri/core/const.dart';
+import 'package:Freelanceri/features/screens/AuthUi/b_signup.dart';
 import 'package:Freelanceri/main.dart';
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+import '../../../core/const.dart';
+import '../../../core/dimensions.dart';
+
+class BusinessLogin extends StatefulWidget {
+  const BusinessLogin({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<BusinessLogin> createState() => _BusinessLoginState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _BusinessLoginState extends State<BusinessLogin> {
   bool isChecked = false;
 
   Color getColor(Set<MaterialState> states) {
@@ -88,18 +88,18 @@ class _LoginViewState extends State<LoginView> {
                   "Miresevini ne platformen Freelanceri",
                   style: TextStyle(fontSize: 17, color: Colors.grey[500]),
                 )),
-           Container(
-             height: getPhoneHeight(context)*0.3,
-             width: getPhoneWitdth(context)*0.9,
-             margin: EdgeInsets.symmetric(horizontal: getPhoneWitdth(context)*0.05,vertical: 10),
-             decoration:const BoxDecoration(
-               color: primaryBlue,
-               image: DecorationImage(
-                 image: AssetImage("assets/images/loginImg.png"),
-                 fit: BoxFit.cover
-               )
-             ),
-           ),
+            Container(
+              height: getPhoneHeight(context)*0.3,
+              width: getPhoneWitdth(context)*0.9,
+              margin: EdgeInsets.symmetric(horizontal: getPhoneWitdth(context)*0.05,vertical: 10),
+              decoration:const BoxDecoration(
+                  color: primaryBlue,
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/loginImg.png"),
+                      fit: BoxFit.cover
+                  )
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(
                   left: size.width * 0.05,
@@ -121,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 0, color: Colors.transparent),
+                      const BorderSide(width: 0, color: Colors.transparent),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: Colors.grey[300],
@@ -133,7 +133,7 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.circular(15)),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: primaryBlue, width: 1),
+                        const BorderSide(color: primaryBlue, width: 1),
                         borderRadius: BorderRadius.circular(10))),
               ),
             ),
@@ -159,7 +159,7 @@ class _LoginViewState extends State<LoginView> {
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 0, color: Colors.transparent),
+                      const BorderSide(width: 0, color: Colors.transparent),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     fillColor: Colors.grey[300],
@@ -182,7 +182,7 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.circular(15)),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: primaryBlue, width: 1),
+                        const BorderSide(color: primaryBlue, width: 1),
                         borderRadius: BorderRadius.circular(10))),
               ),
             ),
@@ -219,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
             Center(
               child: GestureDetector(
                 onTap: ()async {
-                   login(userProvider);
+                  login(userProvider);
                 },
                 child: Container(
                   margin: const EdgeInsets.all(10),
@@ -239,7 +239,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed("/signup");
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const BusinessSignup()));
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

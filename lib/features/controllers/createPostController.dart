@@ -11,6 +11,7 @@ class CreatePostController {
   Future<Either<Failure, PostModel>> createPost(PostModel postModel) async {
     try {
       var url = Uri.parse(createAPost);
+      print(postModel.toJson());
       var response = await http.post(
         url,
         body: jsonEncode(postModel.toJson()),

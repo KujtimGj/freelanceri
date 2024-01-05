@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:Freelanceri/features/screens/home/home.dart';
+import 'package:Freelanceri/features/screens/freelancer/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:Freelanceri/features/controllers/createPostController.dart';
 import 'package:Freelanceri/features/controllers/readPostController.dart';
@@ -31,19 +31,17 @@ class PostProvider extends ChangeNotifier {
     createPostController = CreatePostController();
     if (createPostController == null) {
       print('CreatePostController is null');
-      return; // or handle the situation appropriately
+      return;
     }
 
     var result = await createPostController!.createPost(postModel);
     result.fold(
           (failure) {
         print(failure);
-        print("bbbbbbbbbbbbbbb");
       },
           (createdPost) {
         _posts.add(createdPost);
         notifyListeners();
-        print("AAAAAAAAAAAAAAAAAA");
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>Home()), (route) => false);
       },
     );

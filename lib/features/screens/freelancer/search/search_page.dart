@@ -1,7 +1,7 @@
 import 'package:Freelanceri/core/const.dart';
 import 'package:Freelanceri/core/dimensions.dart';
 import 'package:flutter/material.dart';
-import 'package:Freelanceri/features/screens/home/home.dart';
+import 'package:Freelanceri/features/screens/freelancer/home/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Search extends StatefulWidget {

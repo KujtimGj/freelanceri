@@ -128,6 +128,9 @@ class _CreatePostState extends State<CreatePost> {
         firstName: prefs.getString("firstName").toString(),
         lastName: prefs.getString("lastName").toString(),
         email: prefs.getString("email").toString(),
+        city:prefs.getString('city').toString(),
+        companyType: prefs.getString('companyType').toString(),
+        companyName: prefs.getString('companyName').toString()
       );
       PostModel postModel = PostModel(
         id: M.ObjectId(),
@@ -146,7 +149,7 @@ class _CreatePostState extends State<CreatePost> {
 
       print(prefs.getString("uuid"));
       await postProvider.createPost(postModel,context);
-      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const SucessfulPost()), (route) => false);
     }
   }
 

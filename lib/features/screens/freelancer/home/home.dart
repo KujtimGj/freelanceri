@@ -5,7 +5,7 @@ import 'package:Freelanceri/core/const.dart';
 import 'package:Freelanceri/core/dimensions.dart';
 import 'package:Freelanceri/features/model/postModel.dart';
 import 'package:Freelanceri/features/providers/postProvider.dart';
-import 'package:Freelanceri/features/screens/details/details.dart';
+import 'package:Freelanceri/features/screens/freelancer/details/details.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
                                                           const SizedBox(
                                                               height: 5),
                                                           Text(
-                                                            "Filan Fisteku",
+                                                            '${postProvider.getPosts()[index].userId.firstName} ${postProvider.getPosts()[index].userId.lastName}',
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme

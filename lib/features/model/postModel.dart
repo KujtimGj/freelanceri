@@ -70,6 +70,10 @@ class UserId {
   String lastName;
   String email;
   String? password;
+  String? city;
+  String? companyName;
+  String? companyType;
+
 
   UserId({
     required this.id,
@@ -77,6 +81,9 @@ class UserId {
     required this.lastName,
     required this.email,
     this.password,
+    required this.city,
+    this.companyName,
+    this.companyType
   });
 
   factory UserId.fromJson(Map<String, dynamic> json) => UserId(
@@ -85,6 +92,9 @@ class UserId {
     lastName: json["lastName"],
     email: json["email"],
     password: json["password"],
+    city: json['city'],
+    companyName: json['companyName'],
+    companyType: json['companyType']
   );
 
   Map<String, dynamic> toJson() => {
@@ -93,5 +103,8 @@ class UserId {
     "lastName": lastName,
     "email": email,
     "password": password,
+    "city":city,
+    "companyName":companyName,
+    'companyType':companyType
   };
 }

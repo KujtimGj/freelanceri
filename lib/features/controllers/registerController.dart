@@ -36,6 +36,9 @@ class RegisterController {
           prefs.setString("firstName", decodedData['business']['firstName']);
           prefs.setString("lastName", decodedData['business']['lastName']);
           prefs.setString("email", decodedData['business']['email']);
+          prefs.setString("city", decodedData['business']['city']);
+          prefs.setString("companyName", decodedData['business']['companyName']);
+          prefs.setString("companyType", decodedData['business']['companyType']);
           prefs.setString("uuid", decodedData['business']['_id']);
           print(prefs.getString("firstName"));
           print(prefs.getString("lastName"));

@@ -16,7 +16,6 @@ class PostsController{
 
     if(res.statusCode ==200){
       List<PostModel> posts = decodedData.map<PostModel>((json)=>PostModel.fromJson(json)).toList();
-      print(decodedData);
       return Right(posts);
     }else{
       print("object");

@@ -18,12 +18,16 @@ class _AccountState extends State<Account> {
 
   String? firstName;
   String? lastName;
+  String? companyName;
+  String? companyType;
 
   getUserData()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       firstName = prefs.getString("firstName");
       lastName = prefs.getString("lastName");
+      companyName = prefs.getString("companyName");
+      companyType = prefs.getString("companyType");
     });
   }
 
@@ -32,6 +36,8 @@ class _AccountState extends State<Account> {
     prefs.remove("firstName");
     prefs.remove("lastName");
     prefs.remove("token");
+    prefs.remove("companyName");
+    prefs.remove("companyType");
     prefs.setBool("isLoggedIn", false);
   }
 
@@ -54,15 +60,11 @@ class _AccountState extends State<Account> {
               width: getPhoneWitdth(context),
               child: Stack(
                 children: [
-                  Opacity(
-                    opacity: 0.4,
-                    child: Container(
-                      height: getPhoneHeight(context) * 0.25,
-                      width: getPhoneWitdth(context),
-                      decoration: const BoxDecoration(
-                        color: primaryBlue,
-                      ),
-                      child: Image.asset("assets/images/Free.png",fit: BoxFit.fitWidth,),
+                  Container(
+                    height: getPhoneHeight(context) * 0.25,
+                    width: getPhoneWitdth(context),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
                     ),
                   ),
                   Align(
@@ -74,7 +76,7 @@ class _AccountState extends State<Account> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: AssetImage("assets/images/user_kgj.png"))),
+                              image: AssetImage("assets/images/gjoka.png"))),
                     ),
                   )
                 ],
@@ -86,16 +88,16 @@ class _AccountState extends State<Account> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                    Text(
-                    "$firstName $lastName",
+                     companyName.toString(),
                     style:const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
-                  const Text(
-                    "Flutter & Back-End Developer",
-                    style: TextStyle(fontSize: 19),
+                   Text(
+                     "$firstName $lastName",
+                    style: const TextStyle(fontSize: 19),
                   ),
                   const SizedBox(height: 20),
-                  const Text("Universum College",
-                      style: TextStyle(fontSize: 18)),
+                  Text(companyType.toString(),
+                      style: const TextStyle(fontSize: 18)),
                   Text("Prishtina, Kosova",
                       style: TextStyle(fontSize: 16, color: Colors.grey[600]))
                 ],
@@ -117,7 +119,7 @@ class _AccountState extends State<Account> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Experience",
+                        "Projects",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w500),
                       ),

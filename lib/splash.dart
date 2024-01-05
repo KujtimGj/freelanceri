@@ -1,15 +1,16 @@
+import 'package:Freelanceri/features/screens/intro/chooserole.dart';
 import 'package:Freelanceri/features/screens/AuthUi/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:Freelanceri/core/const.dart';
-import 'package:Freelanceri/features/screens/home/home.dart';
+import 'package:Freelanceri/features/screens/freelancer/home/home.dart';
 import 'package:Freelanceri/main.dart';
 import 'package:Freelanceri/features/screens/intro/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
   final bool isLoggedIn;
-  const SplashScreen({super.key,required this.isLoggedIn});
+  const SplashScreen({super.key, required this.isLoggedIn});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -20,10 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => widget.isLoggedIn?Base():LoginView()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (_) =>
+              widget.isLoggedIn ? const Base() : const ChooseRole()));
     });
-   }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Freelanceri/core/const.dart';
 import 'package:Freelanceri/core/dimensions.dart';
 import 'package:Freelanceri/features/model/postModel.dart';
-import 'package:Freelanceri/features/screens/details/apply.dart';
+import 'package:Freelanceri/features/screens/freelancer/details/apply.dart';
 import 'package:get/get.dart';
 
 class Details extends StatelessWidget {
@@ -167,7 +167,7 @@ class Details extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "Filan Fisteku",
+                              '${post.userId.firstName} ${post.userId.lastName}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -354,8 +354,8 @@ class Details extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Filan Fisteku",
+                             Text(
+                               "${post.userId.firstName} ${post.userId.lastName}",
                               style: TextStyle(fontSize: 16),
                             ),
                             Text(
@@ -376,7 +376,7 @@ class Details extends StatelessWidget {
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Text(
-                        "gjokajkujtim9@gmail.com",
+                        post.userId.email,
                         style: TextStyle(color: Colors.grey[400]),
                       )
                     ],
@@ -400,8 +400,8 @@ class Details extends StatelessWidget {
                         "Nga",
                         style: TextStyle(fontSize: 17, color: Colors.grey[400]),
                       ),
-                      const Text(
-                        "Prishtina, Kosovo",
+                      Text(
+                        post.userId.city!,
                         style: TextStyle(fontSize: 18, color: Colors.black87),
                       ),
                     ],
